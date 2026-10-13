@@ -1,6 +1,8 @@
 #include <stdio.h>
 #define  N_MATERIAS 5 
 
+float validarFlotanteRango(float min, float max);
+
 int main (int argc, char *argv[]) {
 
     char nombres[N_MATERIAS][20];
@@ -45,12 +47,16 @@ int main (int argc, char *argv[]) {
             }
             printf("Seleccionado estudiate %d: %s\n",sel,nombres[sel]);
             printf("Ingrese las calificaciones\n");
+
             printf("Matematicas: ");
-            scanf("%f",&m1[sel]);
+            m1[sel] = validarFlotanteRango(1,10);
+            
             printf("Lenguaje: ");
-            scanf("%f",&m2[sel]);
+            m2[sel] = validarFlotanteRango(1,10);
+
             printf("Programacion: ");
-            scanf("%f",&m3[sel]);
+            m3[sel] = validarFlotanteRango(1,10);
+  
             break;
         case 3:
             float prom=0;
@@ -87,4 +93,19 @@ int main (int argc, char *argv[]) {
 
 
     return 0;
+}
+
+
+float validarFlotanteRango(float min, float max){
+    int val = 0;
+    float aux = 0;
+    do{
+        val = scanf("%f",&aux);
+        while((getchar())!='\n');
+            if (aux < min || aux > max || val != 1)
+            {
+                printf("Error: EL valor ingresado es incorrecto\n");
+            }
+    }while(aux < min || aux > max  || val != 1);
+    return aux;
 }
