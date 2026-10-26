@@ -1,13 +1,16 @@
 #include <stdio.h>
-#define  N_MATERIAS 5 
+#include <string.h>
+#include "funciones.h"
 
-float validarFlotanteRango(float min, float max);
+
 
 int main (int argc, char *argv[]) {
 
-    char nombres[N_MATERIAS][20];
-    float m1[N_MATERIAS] = {0}, m2[N_MATERIAS] = {0}, m3[N_MATERIAS] = {0};
+    char nombres[N_ALUMNOS][20];
+    float m1[N_ALUMNOS] = {0}, m2[N_ALUMNOS] = {0}, m3[N_ALUMNOS] = {0};
     int opc = 0, opc1 = 0;
+    char mats[3][20] = {"Mat","Len","Pro"};
+
 
     int contE = 0;
 
@@ -25,7 +28,7 @@ int main (int argc, char *argv[]) {
         switch (opc1)
         {
         case 1:
-            if(contE<N_MATERIAS){
+            if(contE<N_ALUMNOS){
                 printf("Ingrese el estudiante %d: ",contE);
                 scanf("%s",&nombres[contE]);
                 contE++;
@@ -75,15 +78,22 @@ int main (int argc, char *argv[]) {
             promM[2]/=contE;
             printf("#\t\tProme.\t\t%.2f\t\t%.2f\t\t%.2f\n",promM[0],promM[1],promM[2]);
             break;
+        case 4:
+            float ab[3][2];
+            calificacionAltaBaja(m1,m2,m3,ab,contE);
+            printf("Mats\t\tMin\t\tMax\n");
+            for (int i = 0; i < 3; i++)
+            {
+                printf("%s\t\t%.2f\t\t%.2f\n",mats[i],ab[i][0],ab[i][1]);
+            }
+            break;
+        case 5:
+            aprobadosReprobados(nombres,m1,m2,m3,contE);
+            break;
         
         default:
             break;
         }
-
-
-
-
-
 
         printf("Desea seleccionar una opcion 1.Si/2.No: ");
         scanf("%d",&opc);
@@ -96,16 +106,4 @@ int main (int argc, char *argv[]) {
 }
 
 
-float validarFlotanteRango(float min, float max){
-    int val = 0;
-    float aux = 0;
-    do{
-        val = scanf("%f",&aux);
-        while((getchar())!='\n');
-            if (aux < min || aux > max || val != 1)
-            {
-                printf("Error: EL valor ingresado es incorrecto\n");
-            }
-    }while(aux < min || aux > max  || val != 1);
-    return aux;
-}
+
